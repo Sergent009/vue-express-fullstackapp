@@ -31,4 +31,9 @@
     outline: 0;
     padding: 16px;
   }
+
+  button:hover{
+    background: rgb(202, 198, 198);
+    color: black;
+  }
 </style>
