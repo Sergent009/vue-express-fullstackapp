@@ -1,8 +1,9 @@
 <template>
 <div>
-<div id="page-wrap">
+<div id="page-wrap" v-if="cartItems.length > 0">
   <ProductsListItem v-for="product in cartItems" :key="product.id" :product="product" />
 </div>
+<p v-else>You haven't added anything to the Cart</p>
 </div>
 </template>
 
