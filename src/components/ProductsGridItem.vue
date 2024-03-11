@@ -2,6 +2,7 @@
 
   <div class="product-item">
     <img :src="product.imageUrl">
+    <!-- <img src="http://localhost:8000/images/shoes-1.jpg"> -->
     <h3 class="product-name">{{product.name}}</h3>
     <p class="product-price">${{product.price}}</p>
       <router-link :to="'/products/' + product.id">
