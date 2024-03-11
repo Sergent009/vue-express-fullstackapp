@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import {products} from '../fake-data'
 import NotFoundPage from './NotFoundPage.vue'
+import axios from 'axios'
 
 export default {
   name: 'ProductDetailPage',
@@ -30,9 +30,14 @@ export default {
 
   data(){
     return{
-      // it will give the product who's id matches the current id url parameter
-      product: products.find((p) => p.id === this.$route.params.id)
+     product: {}
     }
+  },
+
+  async created(){
+    const result = await axios.get(`/api/products/${this.$route.params.id}`)
+    const product = result.data
+    this.product = product
   }
 }
 </script>
