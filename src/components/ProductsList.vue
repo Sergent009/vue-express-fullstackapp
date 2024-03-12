@@ -1,10 +1,18 @@
 <template>
-<div>
-<div id="page-wrap" v-if="cartItems.length > 0">
-  <ProductsListItem v-for="product in cartItems" :key="product.id" :product="product" />
-</div>
-<p v-else>You haven't added anything to the Cart</p>
-</div>
+
+  <div>
+    <div v-for="(product, index) in cartItems" :key="index">
+      <!-- Check if the product is not null before accessing its properties -->
+      <div v-if="product">
+        <ProductsListItem :product="product" />
+        <!-- Add other product details you want to display -->
+      </div>
+      <!-- <div v-else>
+        <p>This product is not available.</p>
+      </div> -->
+    </div>
+  </div>
+
 </template>
 
 <script>

@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import ProductsList from '../components/ProductsList.vue'
 import axios from 'axios'
+import ProductsList from '../components/ProductsList.vue'
 
 export default {
   name: 'CartPage',
@@ -27,14 +27,14 @@ export default {
     }
   },
 
-  computed:{
-    totalPrice(){
-      return this.cartItems.reduce(
-        (sum, item) => sum + Number(item.price),
-        0
-      )
-    }
-  },
+  computed: {
+  totalPrice() {
+    return this.cartItems.reduce(
+      (sum, item) => sum + (item && item.price ? Number(item.price) : 0),
+      0
+    );
+  }
+},
 
   async created(){
     const result = await axios.get('/api/users/12345/cart')
@@ -57,13 +57,13 @@ export default {
     padding: 16px;
     text-align: right;
     position: relative;
-    top: -230px;
+    top: auto;
   }
 
   #checkout-button {
     width: 50%;
     position: relative;
-    top: -200px;
+    top: auto;
     left: 330px;
   }
 

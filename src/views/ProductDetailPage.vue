@@ -38,7 +38,15 @@ export default {
     const result = await axios.get(`/api/products/${this.$route.params.id}`)
     const product = result.data
     this.product = product
-  }
+  },
+
+  // methods: {
+  //   async addToCart(){
+  //     await axios.post('/api/users/12345/cart', {
+  //       productId: this.$route.params.id
+  //     })
+  //   }
+  // }
 }
 </script>
 
