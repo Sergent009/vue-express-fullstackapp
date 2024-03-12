@@ -8,7 +8,8 @@
     <h1>{{product.name}}</h1>
     <h3 id="price">${{product.price}}</h3>
     <p>Average rating: {{product.averageRating}}</p>
-    <button id="add-to-cart">Add to Cart</button>
+    <button v-if="!showSuccessMessage" id="add-to-cart" v-on:click="addToCart">Add to Cart</button>
+    <button v-if="showSuccessMessage" id="add-to-cart" class="green-button">Added The Product</button>
     <h4>Descrition</h4>
     <p>{{product.description}}</p>
   </div>
@@ -19,8 +20,8 @@
 </template>
 
 <script>
-import NotFoundPage from './NotFoundPage.vue'
 import axios from 'axios'
+import NotFoundPage from './NotFoundPage.vue'
 
 export default {
   name: 'ProductDetailPage',
@@ -30,7 +31,8 @@ export default {
 
   data(){
     return{
-     product: {}
+     product: {},
+     showSuccessMessage: false
     }
   },
 
@@ -40,13 +42,17 @@ export default {
     this.product = product
   },
 
-  // methods: {
-  //   async addToCart(){
-  //     await axios.post('/api/users/12345/cart', {
-  //       productId: this.$route.params.id
-  //     })
-  //   }
-  // }
+  methods:{
+    async addToCart(){
+      await axios.post('/api/users/12345/cart', {
+        productId: this.$route.params.id
+      })
+      this.showSuccessMessage = true
+      setTimeout(() => {
+      this.$router.push('/products')
+      }, 1500)
+    }
+  }
 }
 </script>
 
