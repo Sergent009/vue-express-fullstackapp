@@ -8,8 +8,9 @@
     <h1>{{product.name}}</h1>
     <h3 id="price">${{product.price}}</h3>
     <p>Average rating: {{product.averageRating}}</p>
-    <button v-if="!showSuccessMessage" id="add-to-cart" v-on:click="addToCart">Add to Cart</button>
-    <button v-if="showSuccessMessage" id="add-to-cart" class="green-button">Added The Product</button>
+    <button v-if="!itemIsInCart && !showSuccessMessage" id="add-to-cart" v-on:click="addToCart">Add to Cart</button>
+    <button v-if="!itemIsInCart && showSuccessMessage" id="add-to-cart" class="green-button">Added The Item</button>
+    <!-- <button v-if="itemIsInCart" id="add-to-cart" class="grey-button">Item is Already In Cart</button> -->
     <h4>Descrition</h4>
     <p>{{product.description}}</p>
   </div>
@@ -32,14 +33,24 @@ export default {
   data(){
     return{
      product: {},
+    //  cartItems: [],
      showSuccessMessage: false
     }
   },
 
+  // computed: {
+  //   itemIsInCart(){
+  //     return this.cartItems.some(item => item.id === this.product.id)
+  //   }
+  // },
+
   async created(){
-    const result = await axios.get(`/api/products/${this.$route.params.id}`)
-    const product = result.data
+    const {data: product} = await axios.get(`/api/products/${this.$route.params.id}`)
     this.product = product
+
+  // loading all the items in the cart
+  // const {data: cartItems} = await axios.get('/api/users/12345/cart')
+  // this.cartItems = cartItems
   },
 
   methods:{
@@ -49,6 +60,7 @@ export default {
       })
       this.showSuccessMessage = true
       setTimeout(() => {
+      // redirecting the user to the /products page after 1.5 seconds
       this.$router.push('/products')
       }, 1500)
     }
