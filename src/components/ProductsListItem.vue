@@ -1,4 +1,5 @@
 <template>
+
   <div class="product-container">
     <img :src="product.imageUrl" class="product-image">
     <div class="details-wrap">
@@ -6,14 +7,24 @@
       <p>${{product.price}}</p>
     </div>
     <!-- emmiting an event to remove the item from the cart -->
-    <button class="remove-button" @click="$emit('remove-from-cart', product.id)">Remove From Cart</button>
+    <button class="remove-button" @click="removeFromCart(product.id)">Remove From Cart</button>
 </div>
+
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-    name: 'ProductsListItem',
-    props: ['product'],
+  name: 'ProductsListItem',
+  props: ['product'],
+
+  methods:{
+    async removeFromCart(productId){
+      const result = await axios.delete(`/api/users/12345/cart/${productId}`)
+      this.cartItems = result.data
+    }
+  }
 }
 </script>
 

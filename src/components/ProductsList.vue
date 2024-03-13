@@ -1,7 +1,7 @@
 <template>
 
   <div>
-    <div v-for="(product, index) in cartItems" :key="index" v-on:remove-from-cart="$emit('remove-from-cart', product.id)">
+    <div v-for="(product, index) in cartItems" :key="index" @remove-from-cart="$emit('remove-from-cart', product.id)">
       <!-- Check if the product is not null before accessing its properties -->
       <div v-if="product">
         <ProductsListItem :product="product" />

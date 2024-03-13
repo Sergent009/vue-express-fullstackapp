@@ -2,7 +2,7 @@
   
 <div>
   <h1>Shopping Cart</h1>
-    <ProductsList :cartItems="cartItems" v-on:remove-from-cart="removeFromCart" />
+    <ProductsList :cartItems="cartItems" @remove-from-cart="removeFromCart" />
     <div>
 <h3 id="total-price">Total: ${{totalPrice}}</h3>
    <button id="checkout-button">Proceed to Checkout</button>
@@ -41,23 +41,6 @@ export default {
     const cartItems = result.data
     this.cartItems = cartItems
   },
-
-  methods:{
-    async removeFromCart(productId){
-      // const result = await axios.delete(`/api/users/12345/cart/${productId}`)
-      // this.cartItems = result.data
-
-      try {
-      const result = await axios.delete(`/api/users/12345/cart/${productId}`);
-      console.log('Server response:', result.data);
-      
-      // Assuming the response data is an array of updated cart items
-      this.cartItems = result.data;
-    } catch (error) {
-      console.error('Error removing product:', error);
-    }
-    }
-  }
 
 }
 </script>
