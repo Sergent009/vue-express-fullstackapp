@@ -10,7 +10,6 @@
     <p>Average rating: {{product.averageRating}}</p>
     <button v-if="!itemIsInCart && !showSuccessMessage" id="add-to-cart" v-on:click="addToCart">Add to Cart</button>
     <button v-if="!itemIsInCart && showSuccessMessage" id="add-to-cart" class="green-button">Added The Item</button>
-    <!-- <button v-if="itemIsInCart" id="add-to-cart" class="grey-button">Item is Already In Cart</button> -->
     <h4>Descrition</h4>
     <p>{{product.description}}</p>
   </div>
@@ -32,8 +31,7 @@ export default {
 
   data(){
     return{
-     product: {},
-    //  cartItems: [],
+     product:null,
      showSuccessMessage: false
     }
   },
@@ -41,17 +39,7 @@ export default {
   async created(){
     const { data: product } = await axios.get(`/api/products/${this.$route.params.id}`)
     this.product = product
-
-  // loading all the items in the cart
-  // const { data: cartItems } = await axios.get('/api/users/12345/cart')
-  // this.cartItems = cartItems
   },
-
-  // computed: {
-  //   itemIsInCart(){
-  //     return this.cartItems.some(item => item.id === this.product.id)
-  //   }
-  // },
 
   methods:{
     async addToCart(){
