@@ -38,20 +38,20 @@ export default {
     }
   },
 
+  async created(){
+    const { data: product } = await axios.get(`/api/products/${this.$route.params.id}`)
+    this.product = product
+
+  // loading all the items in the cart
+  // const { data: cartItems } = await axios.get('/api/users/12345/cart')
+  // this.cartItems = cartItems
+  },
+
   // computed: {
   //   itemIsInCart(){
   //     return this.cartItems.some(item => item.id === this.product.id)
   //   }
   // },
-
-  async created(){
-    const {data: product} = await axios.get(`/api/products/${this.$route.params.id}`)
-    this.product = product
-
-  // loading all the items in the cart
-  // const {data: cartItems} = await axios.get('/api/users/12345/cart')
-  // this.cartItems = cartItems
-  },
 
   methods:{
     async addToCart(){
